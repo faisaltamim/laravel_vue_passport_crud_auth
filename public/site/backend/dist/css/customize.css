@@ -1,0 +1,204 @@
+/*basic body color combination*/
+body {
+    background-color: #22313a !important;
+}
+
+body p {
+    color: #dcf3ff !important;
+}
+
+body a {
+    color: #96a9b2 !important;
+}
+
+.btn:focus,
+.page-link,
+input,
+.form-control,
+.custom-select {
+    box-shadow: none !important;
+    outline: 0px !important;
+    border: 0px !important;
+}
+
+/*top header*/
+#customNav {
+    background-color: #22313a;
+    border-bottom: none;
+}
+
+#customNav a {
+    color: #ddd;
+}
+
+#asiderTopHeader {
+    background-color: #1b262d;
+    border-right: none;
+    border-bottom: none;
+}
+
+/*top search section*/
+#customTopSearch input.form-control.form-control-navbar::placeholder {
+    color: #96a9b2;
+}
+
+#customTopSearch .navbar-light .btn-navbar,
+.navbar-light .form-control-navbar {
+    background-color: #344752 !important;
+    border: 0;
+    color: white !important;
+}
+
+/*sidebar css*/
+#customSidebar {
+    background-color: #22313a;
+}
+
+#topSideUserProfile {
+    border-bottom: 1px solid #364b58;
+}
+
+/*main content css*/
+
+#mainContentBg {
+    background-color: #2a3a43 !important;
+}
+
+#customSidebar li a p {
+    color: #96a9b2 !important;
+}
+
+/*main content css end */
+
+/*footer css*/
+footer#customFooter {
+    background: #22313a !important;
+    color: #7996a9 !important;
+    border-top: none;
+}
+
+footer#customFooter a {
+    color: #c0def2 !important;
+}
+
+.dataTableCard {
+    border: none !important;
+    box-shadow: 5px 5px 6px 0px #2b3642;
+}
+
+.dataTableCard h1,
+.dataTableCard h2,
+.dataTableCard h3,
+.dataTableCard h4,
+.dataTableCard h5,
+.dataTableCard h6,
+.dataTableCard p,
+.dataTableCard a,
+.dataTableCard th,
+.dataTableCard label,
+.dataTableCard td,
+.dataTableCard table,
+.dataTableCard tr,
+.dataTableCard div,
+.dataTableCard select,
+.dataTableCard td,
+.dataTableCard input,
+.dataTableCard li,
+.dataTableCard span {
+    color: #96a9b2 !important;
+    border-color: #7778764d !important;
+}
+
+.dataTableCard .addbtn {
+    background: rgb(16 23 27);
+    color: #96a9b2;
+}
+
+.dataTableCard .addbtn:hover {
+    background: #000;
+    color: #96a9b2;
+}
+
+.dataTableCard th {
+    border-bottom: none !important;
+    border-top: none !important;
+}
+
+.dataTableCard .page-item.active .page-link {
+    background: #151e24 !important;
+}
+
+.dataTableCard .form-control {
+    background-color: #1b262d;
+}
+
+.dataTableCard .paginate_button a {
+    background-color: #1b262d !important;
+}
+
+.dataTableCard .pagination .active {
+    background-color: #000 !important;
+}
+
+.dataTableCard input.form-control.form-control-sm:focus,
+.dataTableCard .custom-select:focus {
+    background: rgb(16 23 27) !important;
+}
+
+.dataTableCard .statusActiveInactive {
+    padding: 1px 9px;
+    background: #00a100;
+    border-radius: 3px;
+    color: white !important;
+}
+
+.modal-header,
+.modal-footer {
+    background-color: #172128 !important;
+    border-color: #7778764d !important;
+    border-radius: 0px !important;
+    color: #96a9b2 !important;
+}
+
+.modal-header .close,
+.modal-header span {
+    color: #96a9b2 !important;
+}
+
+#modal-1___BV_modal_body_ {
+    padding: 0px !important;
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.modal-body {
+    background-color: #22313a;
+    color: #96a9b2 !important;
+}
+
+.modal-content .form-control {
+    background: #1b262d !important;
+    color: #96a9b2 !important;
+}
+
+.modal-content .form-control:focus {
+    background: rgb(16 23 27) !important;
+}
+
+.CustomBootsrpVueBtn {
+    border: 0px !important;
+}
+
+.CustomBootsrpVueBtn:focus {
+    background-color: #000 !important;
+    color: #96a9b2 !important;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: #000c1bad;
+}
+
+
