@@ -1,7 +1,8 @@
 /*basic body color combination*/
 body {
-    background-color: #22313a !important;
+    background-color: #22313a;
 }
+
 
 body p {
     color: #dcf3ff !important;
@@ -169,6 +170,10 @@ footer#customFooter a {
     padding: 0px !important;
 }
 
+#modal-2___BV_modal_body_ {
+    padding: 0px !important;
+}
+
 .modal-backdrop {
     background-color: rgba(0, 0, 0, 0.8) !important;
 }
@@ -196,9 +201,7 @@ footer#customFooter a {
     color: #96a9b2 !important;
 }
 
-.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
-.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
+.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
     background-color: #000c1bad;
 }
-
-

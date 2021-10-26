@@ -3,17 +3,16 @@ Vue.mixin({
     methods: {
         sweetDelete(callbackResult) {
             swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: "Are you confirm to delete?",
+                // text: "You won't be able to revert this!",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonColor: "rgb(184 0 0)",
+                cancelButtonColor: "rgb(1 1 1)",
+                confirmButtonText: "Yes, delete!"
             }).then(result => {
                 if (result.isConfirmed) {
                     callbackResult();
-                    
                 }
             });
         }

@@ -1,3 +1,5 @@
+// note css gula eikhane import na kore app.scss eo import kora jete pare oita best practice
+
 require("./bootstrap");
 window.Vue = require("vue");
 // axios import here start
@@ -10,10 +12,26 @@ import { filter_moment } from "./filter/filter";
 //import vue mixin
 import "./helpers/mixin";
 
+// start vuex initialize
+import Vuex from "vuex";
+Vue.use(Vuex);
+window.Vuex = Vuex; //globally use
+import store_data from "./store/store";
+const store = new Vuex.Store(store_data);
+// end vuex initialize
+
 // import sweetalert2 start
 import swal from "sweetalert2";
 window.swal = swal;
 // import sweetalert2 end
+
+// import element ui start
+// import elementUi from "../../node_modules/element-ui/lib/theme-chalk/index.css";
+import ElementUI from "element-ui";
+// app.sass e css file link korano hoise miah
+
+Vue.use(ElementUI);
+// import element ui end
 
 // import iziToast message start
 import iziToastCss from "../../node_modules/izitoast/dist/css/iziToast.min.css";
@@ -62,28 +80,9 @@ Vue.use(BootstrapVue);
 // import bootstrap vue end
 
 // start vue router
-import VueRouter from "vue-router";
-Vue.use(VueRouter);
-import { routes } from "./router/routes";
-const router = new VueRouter({
-    routes,
-    mode: "history",
-    scrollBehavior() {
-        return {
-            x: 0,
-            y: 0
-        };
-    }
-});
-// end vue router
+import { router } from "./router/routes";
 
-// start vuex initialize
-import Vuex from "vuex";
-Vue.use(Vuex);
-window.Vuex = Vuex; //globally use
-import store_data from "./store/store";
-const store = new Vuex.Store(store_data);
-// end vuex initialize
+// end vue router
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
@@ -93,3 +92,7 @@ const app = new Vue({
     router,
     store
 });
+
+Vue.config.devtools = true;
+Vue.config.debug = true;
+Vue.config.silent = false;

@@ -16,6 +16,11 @@
                             ><i class="fas fa-bars"></i
                         ></a>
                     </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <router-link :to="{ name: '/' }" class="nav-link"
+                            >Home</router-link
+                        >
+                    </li>
                 </ul>
 
                 <!-- SEARCH FORM -->
@@ -39,9 +44,12 @@
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
                     <li>
-                        <a href="" class="btn btn-danger btn-sm">
+                        <router-link
+                            :to="{ name: 'logout' }"
+                            class="btn btn-danger btn-sm"
+                        >
                             <i class="fas fa-sign-out-alt text-light"></i>
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </nav>

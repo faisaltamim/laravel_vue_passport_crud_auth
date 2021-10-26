@@ -11,31 +11,12 @@ use Intervention\Image\Facades\Image;
 use Throwable;
 
 class CategoryController extends Controller {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index() {
         $allCategory = Category::orderBy( 'created_at', 'desc' )->paginate( 5 );
         return response()->json( ['categories' => $allCategory], 200 );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store( Request $request ) {
         $validator = Validator::make( $request->all(), [
             'name'   => 'required|unique:categories,name',
@@ -65,7 +46,7 @@ class CategoryController extends Controller {
             $imglink        = $request->file( 'image' ); //main img link
             $image_name     = Str::slug( $request->name );
             $image_exe      = strtolower( $imglink->getClientOriginalExtension() );
-            $image_fullName = $image_name . date( 'YmdHi' ) . '.' . $image_exe;
+            $image_fullName = $image_name . date( 'd_m_Y_h_i_s_' ) . '.' . $image_exe; //time er ei 'd_m_Y_h_i_s_' format ta dile bar bar image update dile update image ta show korbe all data er oikhane ar onno format dile show korbe na tai ei format ta dite hobe always..ek kothay image upload hole ei format ta diyei update korte hobe
             // end image configuration
 
             // name lowercase start
@@ -98,43 +79,81 @@ class CategoryController extends Controller {
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show( $id ) {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit( $id ) {
-        
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update( Request $request, $id ) {
-        //
+
+        $validator = Validator::make( $request->all(), [
+            'name'   => 'required|unique:categories,name,' . $id,
+            'image'  => 'nullable|image|mimes:jpeg,png,jpg|max:3072', //ei nullable ta dile update e image na dile problem nai but image up dewar por baki validation gula korbe jemon size er format er etc..
+            'status' => 'required',
+        ], [
+            'name.required'   => 'Please insert category name!',
+            'name.unique'     => 'This category name exist in our database.Please insert a unique category name!',
+            'image.mimes'     => 'Category image type should be jpeg,png,jpg!',
+            'image.image'     => 'Please upload a valid image!',
+            'image.max'       => 'Category image must be under 3 MB!',
+            'status.required' => 'Please insert category status!',
+        ] );
+
+        //validation message condition
+
+        if ( $validator->fails() ) {
+            $jsonData = [
+                'message' => $validator->errors(),
+                'success' => false,
+            ];
+            return response()->json( $jsonData, 422 );
+        }
+
+        // update user data by try catch
+        try {
+            $catName = Str::lower( $request->name );
+            //update user data
+            $update         = Category::findOrFail( $id );
+            $oldImageFind   = $update->image;
+            $update->name   = $catName;
+            $update->status = $request->status;
+            if ( $request->hasFile( 'image' ) ) {
+                // first unlink old image
+                if ( file_exists( public_path( 'storage/category_images/' . $oldImageFind ) ) ) {
+                    unlink( public_path( 'storage/category_images/' . $oldImageFind ) );
+                }
+
+                // start image configuration
+                $imglink        = $request->file( 'image' ); //main img link
+                $image_name     = Str::slug( $request->name );
+                $image_exe      = strtolower( $imglink->getClientOriginalExtension() );
+                $image_fullName = $image_name . date( 'd_m_Y_h_i_s_' ) . '.' . $image_exe; //time er ei 'd_m_Y_h_i_s_' format ta dile bar bar image update dile update image ta show korbe all data er oikhane ar onno format dile show korbe na tai ei format ta dite hobe always..ek kothay image upload hole ei format ta diyei update korte hobe
+                // end image configuration
+
+                // if image upload then update
+                $update->image = $image_fullName;
+
+                //delete old image
+
+                Image::make( $imglink )->resize( 200, 200 )->save( public_path( 'storage/category_images/' ) . $image_fullName );
+            } else {
+                // jehetu image e nullable condition dewa ache tai eikhane old image upload na dileo hobe
+            }
+            $updateData = $update->save();
+
+            if ( $updateData ) {
+                $jsonData = [
+                    'message' => 'Category Successfully Updated!',
+                    'success' => true,
+                ];
+                return response()->json( $jsonData, 200 );
+            }
+        } catch ( Throwable $th ) {
+            $jsonData = [
+                'message' => 'Category Did Not Updated!',
+                'success' => false,
+                'error'   => $th,
+            ];
+            return response()->json( $jsonData, 500 );
+        }
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy( $id ) {
 
         $findId = Category::findOrFail( $id );
@@ -150,5 +169,94 @@ class CategoryController extends Controller {
             'success' => true,
         ];
         return response()->json( $jsonData, 200 );
+    }
+
+    public function deleteAll( $selected ) {
+
+        $singleDelete = explode( ',', $selected );
+        $totalData    = 0;
+
+        foreach ( $singleDelete as $item ) {
+            $findId = Category::findOrFail( $item );
+            $Img    = $findId->image;
+
+            if ( $findId->delete() ) {
+                if ( file_exists( public_path( 'storage/category_images/' . $Img ) ) ) {
+                    unlink( public_path( 'storage/category_images/' . $Img ) );
+                }
+            }
+            $totalData++;
+        }
+
+        $jsonData = [
+            'msg'     => $totalData . ' Categories Successfully Deleted!',
+            'success' => true,
+        ];
+        return response()->json( $jsonData, 200 );
+    }
+
+    public function activeAll( $selected ) {
+
+        $selectedId = explode( ',', $selected );
+        $totalData  = 0;
+
+        foreach ( $selectedId as $item ) {
+            $update = Category::findOrFail( $item );
+
+            if ( $update->status == '0' ) {
+                $update->status = '1';
+                $update->save();
+                $totalData++;
+            }
+
+        }
+
+        if ( $totalData === 0 ) {
+            $jsonData = [
+                'msg'     => ' Already Your Selected Category Activated!',
+                'success' => true,
+                'activeNumber' => 0,
+            ];
+            return response()->json( $jsonData, 200 );
+        } else {
+            $jsonData = [
+                'msg'     => $totalData . ' Categories Status Successfully Activate!',
+                'success' => true,
+            ];
+            return response()->json( $jsonData, 200 );
+        }
+
+    }
+    public function inactiveAll( $selected ) {
+
+        $selectedId = explode( ',', $selected );
+        $totalData  = 0;
+
+        foreach ( $selectedId as $item ) {
+            $update = Category::findOrFail( $item );
+
+            if ( $update->status == '1' ) {
+                $update->status = '0';
+                $update->save();
+                $totalData++;
+            }
+
+        }
+
+        if ( $totalData === 0 ) {
+            $jsonData = [
+                'msg'     => ' Already Your Selected Category Inactivated!',
+                'success' => true,
+                 'activeNumber' => 0,
+            ];
+            return response()->json( $jsonData, 200 );
+        } else {
+            $jsonData = [
+                'msg'     => $totalData . ' Categories Status Successfully Inctivate!',
+                'success' => true,
+            ];
+            return response()->json( $jsonData, 200 );
+        }
+
     }
 }

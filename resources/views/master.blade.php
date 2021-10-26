@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>Laravel Vue Restfull Api Software</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -31,8 +31,10 @@
     {{-- datatables linked --}}
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    {{-- login register form css (login) --}}
     <!-- custom css add -->
     <link rel="stylesheet" href="{{asset('site/backend')}}/dist/css/customize.css">
+    <link rel="stylesheet" href="{{asset('site/backend')}}/dist/css/project.css">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     
 </head>
@@ -41,11 +43,13 @@
         {{-- all the content will get App.vue --}}
     </div>
 
-    <script src="{{asset('js/app.js')}}"></script>
+     <script src="{{asset('js/app.js')}}"></script>
     <!-- jQuery -->
     <script src="{{asset('site/backend')}}/plugins/jquery/jquery.min.js"></script>
+   
     <!-- jQuery UI 1.11.4 -->
     <script src="{{asset('site/backend')}}/plugins/jquery-ui/jquery-ui.min.js"></script>
+    
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)

@@ -1,0 +1,57 @@
+.addbtnForCheckboxBtn {
+    background: rgb(16 23 27) !important;
+    padding: 5px 9px;
+    border-radius: 4px;
+}
+
+.addbtnForCheckboxBtn .btn {
+    padding: 2px 6px !important;
+}
+
+/* sweetaleart css start */
+.swal2-popup {
+    background: #253c57 !important;
+}
+
+.swal2-title {
+    color: #f1f1f1 !important;
+}
+
+.swal2-styled:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+    border: 1px solid #f1f1f1 !important;
+}
+
+/* sweetaleart css end */
+
+/* pagination start */
+.el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev {
+    background-color: #000000 !important;
+    color: white !important;
+}
+
+.el-pagination.is-background .el-pager li {
+    margin: 0 5px;
+    background-color: #000c1bad !important;
+    color: #96a9b2 !important;
+    min-width: 30px;
+    border-radius: 2px;
+    font-weight: 600;
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: #0b679d !important;
+    color: #fff !important;
+}
+
+.el-pagination.is-background .btn-next.disabled,
+.el-pagination.is-background .btn-next:disabled,
+.el-pagination.is-background .btn-prev.disabled,
+.el-pagination.is-background .btn-prev:disabled,
+.el-pagination.is-background .el-pager li.disabled {
+    color: #606266 !important;
+}
+
+/* pagination end */
